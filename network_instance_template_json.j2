@@ -1,0 +1,21 @@
+{
+ "jsonrpc": "2.0",
+  "id": 0,
+  "method": "cli",
+  "params": {
+    "commands": [
+      "enter candidate",
+      "network-instance default {",
+      "type default",
+      "admin-state enable",
+{% for interface in interfaces %}
+      "interface {{ interface.name }}.{{ interface.index }} {",
+{% if not loop.last %}
+      "}",
+{% else %}
+      "}"
+{% endif %}
+{% endfor %}
+    ]
+  }
+}

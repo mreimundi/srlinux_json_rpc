@@ -1,0 +1,27 @@
+--- # template example
+- hosts: localhost
+  gather_facts: no
+  become: yes
+  vars:
+    node_name: leaf1
+
+  tasks:
+    - name: Configuring interface block for {{ node_name }}
+      template:
+        src: interface_template_json.j2
+        dest: /root/srlinux_json_rpc/{{ node_name }}/{{ node_name }}_interface.cfg
+
+    - name: Configuring network instance block for {{ node_name }}
+      template:
+        src: network_instance_template_json.j2
+        dest: /root/srlinux_json_rpc/{{ node_name }}/{{ node_name }}_network_instance.cfg
+
+    - name: Creating routing policy block
+      template:
+        src: routing_policy_template_json.j2
+        dest: /root/srlinux_json_rpc/{{ node_name }}/{{ node_name }}_routing_policy.cfg
+
+    - name: Creating BGP block
+      template:
+        src: bgp_template_json.j2
+        dest: /root/srlinux_json_rpc/{{ node_name }}/{{ node_name }}_bgp.cfg

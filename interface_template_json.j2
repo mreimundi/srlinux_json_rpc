@@ -1,0 +1,25 @@
+{
+ "jsonrpc": "2.0",
+  "id": 0,
+  "method": "cli",
+  "params": {
+    "commands": [
+      "enter candidate",
+{% for interface in interfaces %}
+      "interface {{ interface.name }} {",
+      "subinterface {{ interface.index }} {",
+      "admin-state enable",
+      "ipv4 {",
+      "address {{ interface.ipv4_address_prefix }} {",
+      "}",
+      "}",
+      "}",
+{% if not loop.last %}
+      "}",
+{% else %}
+      "}"
+{% endif %}
+{% endfor %}
+    ]
+  }
+}
